@@ -1,46 +1,39 @@
 sudo: required
-
 addons:
   apt:
     update: true
-
 env:
   global:
-  - OPENSHIFT_VERSION=3.6.1
-  - OPENSHIFT_COMMIT=008f2d5 # always update when bumping $OPENSHIFT_VERSION
-  - DOCKER_USER=projectoddbot
-  - secure: "RqSXO/Odxdc8FJQIZml8azjuwYPvxR9RHK/vNR3pbNuKmGkmgqkXs61tZrdpGIYVeBUhVoHqmuk9RN9Q8nrXFTjp7C2GbneZESUFF4NElQcYLokhNDXXbQHARyiBJFlaiBFvXDJTmKBBBuiEVOHaZXOKcJIno9dLaB+H9XmNTuZx4PvUAUHLnqdvRU9ri/eeEP0u+BVPJsVRMGQY6oTTR0yaXuUg4oVXV+nDsoHoUle1vpcvMsHU0frOc1BdFbk01mGycpEgZ35Jwh964D86YKJg/FFnFZwWKtdWU7PibTiRdy2wUFoAL6MHi/DtnQKTuxDavBPj0O8WHtqHL5WKao43hHnmDtludXFto80bWRTDx1Z9NdC8vCd0Ib998oVZOIbDgXe6geQH+rnY6kbXiecS3CJwEuuJ4/T2A6YGgAB+woJ971Yj1ig7EaH0dH/hg0tEp33SKhlkXChe5+K2Bf3MCnTd34wmMpAGlbCSiNYafNBg01hYjQxrb+c9cYBqkVIzr5R3b9asjtl4JyBpoOk0GWu65VJApSScOznagKNXw8/ojsG69bJzh2BFjXYJjFPfY1mFRlPyg2D3frXGkoNBXI3TaiKGzU+KolXHNbR2eGqKXeVFdK2hhe0CCq/uepNuz5JukqTlGVgSupwne9+9LIeQci573I7XoPblvnU="
+  - OPENSHIFT_VERSION=3.9.0
+  - OPENSHIFT_COMMIT=191fece
+  - DOCKER_USER=whaitukay+bot
+  - secure: HHLy8eDUZhqGjxDhH5KpoXStsxzE6nGWkSfeL4zUQotxfci5KD0e00QaYs2LXRxZH+wMPzN8vUPC1TZWQM/LV03EK8pd1SVMnext8JifQqIYSIaPqgGA9tJ2yprLTuLkICJCWqGP7RLPt4PvgAXfvV1+trtA5p/38YUtx7nIirwaMAl8uZVM/xyf+zgq18il4hY4L1Vhk+WwXCRRwdYdExMqObBckvPUjx4qURSYgmcKxwcC/bYYMCh2KPkRF7zcWusgbt48Ck5VeEw3GdQK/54lnjjZFhVQwWTH7KBHJr25D/LbCGpKia6YRgBtQGRr5sdMUH7AubICbsImiMtiU3iDRzMrzNy5v3pDtBSh1MkTZ1KUxAATkoGN9pDDxRxyrJhRP1u2amzhXvXb6b1JqGMzWr7kbAdrP6rqfoEH4qgJ3rHJy6ba4ah8N4zaAn5VIwHWtyIJCt6lihe+jnJNrYVBNTKiIMdfSWmJfc6EvzCcQ2mkGmG+QYNqzJuTncOTL/gWUN7p17Eqiw67pXr8TqX5cxjR/GlnCmy1yqBfhOioglGu3dIIld7xwiA06VVcHtT3lbTEmES9wv4C1eoBpE9ri3KsvPqw2kTRyjaomRiaxKcYa9r4zsftT2cXlLCj888wnvSpNwoKZknQiF+L3/ODxvLapU4SabFVM2OJ9rU=
   matrix:
   - OPENSHIFT_TEMPLATE=template.yml
   - OPENSHIFT_TEMPLATE=persistent-template.yml
 
 services:
-  - docker
-
+- docker
 before_install:
-  - ./tools/travis/setupscan.sh
-  - ./tools/travis/setup.sh
-
+- "./tools/travis/setupscan.sh"
+- "./tools/travis/setup.sh"
 script:
-  - ./tools/travis/scancode.sh
-  - ./tools/travis/build.sh "PROJECTODD_VERSION=openshift-travis-testing WHISK_ACTIONS_INVOKES_CONCURRENT=666"
-  - ./tools/travis/test.sh
-
+- "./tools/travis/scancode.sh"
+- ./tools/travis/build.sh "WHAITUKAY_VERSION=openshift-travis-testing WHISK_ACTIONS_INVOKES_CONCURRENT=1000"
+- "./tools/travis/test.sh"
 after_failure:
-  - ./tools/travis/collect-logs.sh
-
+- "./tools/travis/collect-logs.sh"
 stages:
-  - docker build
-  - test
-  - deploy
-
+- docker build
+- test
+- deploy
 jobs:
   include:
-    - stage: docker build
-      env: OPENSHIFT_TEMPLATE=template.yml
-      before_install: skip
-      script: ./tools/travis/publish.sh openshift-travis-testing
-    - stage: deploy
-      env: OPENSHIFT_TEMPLATE=template.yml
-      before_install: skip
-      script: ./tools/travis/publish.sh
+  - stage: docker build
+    env: OPENSHIFT_TEMPLATE=template.yml
+    before_install: skip
+    script: "./tools/travis/publish.sh openshift-travis-testing"
+  - stage: deploy
+    env: OPENSHIFT_TEMPLATE=template.yml
+    before_install: skip
+    script: "./tools/travis/publish.sh"

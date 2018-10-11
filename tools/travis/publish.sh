@@ -14,7 +14,7 @@ COMMIT=$(git rev-parse HEAD | cut -c 1-7)
 VERSION=${1:-$COMMIT}
 
 if [ "${VERSION}" != "openshift-latest" ]; then
-  docker login -u "${DOCKER_USER}" -p "${DOCKER_PASSWORD}"
+  docker login -u "${DOCKER_USER}" -p "${DOCKER_PASSWORD}" quay.io
 fi
 
 publish() {

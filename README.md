@@ -1,5 +1,5 @@
 # NOTE:
-This repository has been moved upstream:  https://github.com/apache/incubator-openwhisk-deploy-openshift
+This repository was forked from:  https://github.com/projectodd/openwhisk-openshift
 
 # OpenWhisk on OpenShift
 
@@ -206,7 +206,7 @@ There are some sensible defaults for larger persistent clusters in
 [larger.env](larger.env) that you can use like so:
 
     oc process -f persistent-template.yml --param-file=larger.env | oc create -f -
-    
+
 ## Performance Testing
 
 Adjust the connection count and test duration of both below as
