@@ -30,10 +30,10 @@ publish() {
   fi
 }
 
-publish projectodd whisk_couchdb $VERSION docker/couchdb
-publish projectodd whisk_catalog $VERSION docker/catalog
-publish projectodd whisk_alarms $VERSION docker/alarms
+publish whaitukay whisk_couchdb $VERSION docker/couchdb
+publish whaitukay whisk_catalog $VERSION docker/catalog
+publish whaitukay whisk_alarms $VERSION docker/alarms
 
 for i in $(ls docker/runtimes/); do
-  publish projectodd $i $VERSION docker/runtimes/$i
+  publish whaitukay $i $VERSION docker/runtimes/$i
 done

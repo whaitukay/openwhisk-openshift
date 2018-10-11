@@ -196,7 +196,7 @@ parameters:
   value: "rhdemo-9717f07a"
   required: true
 - name: PROJECTODD_VERSION
-  description: The DockerHub tag for whaitukay images
+  description: The DockerHub tag for projectodd images
   value: "8ee5579"
   required: true
 - name: STRIMZI_VERSION
