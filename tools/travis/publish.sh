@@ -22,7 +22,7 @@ publish() {
   name="$2"
   tag="$3"
   dir="$4"
-  image="${prefix}/${name}:${tag}"
+  image="quay.io/${prefix}/${name}:${tag}"
 
   docker build ${dir} --tag ${image}
   if [ "${tag}" != "openshift-latest" ]; then
